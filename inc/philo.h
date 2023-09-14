@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:43:57 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/14 19:24:06 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:00:10 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PHILO_H
 
 # include <string.h> // memset
+# include <stdint.h>
 # include <unistd.h> // unsleep, gettimeofday, write
 # include <stdio.h> // malloc, free, printf
 # include <sys/time.h> // pthread_create, pthread_detach, pthread_join,
@@ -56,7 +57,6 @@ typedef struct s_fork
 	t_fork		*next;
 }	t_fork;
 
-
 typedef struct s_data
 {
 	int			nb_philo;
@@ -64,7 +64,6 @@ typedef struct s_data
 	int			time_to_eat;
 	int			time_to_sleep;
 	int			nb_eat;
-	int			flag_nb_eat;
 	t_fork		*fork;
 	t_philo		*philo;
 }	t_data;

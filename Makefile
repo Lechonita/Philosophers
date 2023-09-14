@@ -21,7 +21,10 @@ INCLUDES += -I $(INC_DIR)
 
 ################################### Sources ####################################
 
-SRC += philo.c
+SRC += main.c
+SRC += utils.c
+SRC += init.c
+SRC += controls.c
 
 ################################### Objects ####################################
 
@@ -63,10 +66,7 @@ $(NAME): $(OBJ)
 	@$(CC) $(FLAGS) $(OBJ) $(LDFLAGS) $(INCLUDES) -o $(NAME) -lpthread
 	@echo "\n	⤳$(GREEN) Created $(NAME) ✨\n$(DEF_COLOR)"
 
-leaks: $(NAME)
-	@printf "$(GREY)Checking leaks with valgrind...\n$(END)"
-	@sleep 0.5
-	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes -q ./$(NAME)
+# valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes -q ./$(NAME)
 
 clean:
 	@echo "$(HGREY)Removing .o object files...$(END)"
@@ -82,7 +82,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re leaks
+.PHONY: all clean fclean re
 
 #################################### Color #####################################
 
