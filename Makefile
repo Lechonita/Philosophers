@@ -9,7 +9,7 @@ NAME = philo
 FLAGS = -Wall -Wextra -Werror
 
 ifeq ($(debug), true)
-	FLAGS += -g3 -fsanitize=address
+	FLAGS += -g3 -fsanitize=address,undefeined
 endif
 
 CC = cc
@@ -23,8 +23,12 @@ INCLUDES += -I $(INC_DIR)
 
 SRC += main.c
 SRC += utils.c
-SRC += init.c
+SRC += error.c
 SRC += controls.c
+SRC += free.c
+
+SRC_DIR = ./src
+vpath %.c $(SRC_DIR)
 
 ################################### Objects ####################################
 
@@ -70,13 +74,10 @@ $(NAME): $(OBJ)
 
 clean:
 	@echo "$(HGREY)Removing .o object files...$(END)"
-	@make --no-print-directory clean -C $(LIBFT_DIR)
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@echo "$(HGREY)Removing libft...$(END)"
-	@rm -f $(LIBFT)
-	@echo "$(HGREY)Removing MiniShell...$(END)"
+	@echo "$(HGREY)Removing Philo...$(END)"
 	@rm -f $(NAME)
 	@echo "	⤳$(GREY) All cleaned 🌊\n$(END)"
 
