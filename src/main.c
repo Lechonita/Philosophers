@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:02:26 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/19 15:43:10 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/19 17:07:08 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@
 /* Créer un thread manager / serveur pour qui donne la permission aux philos
 	de manger ? */
 
-void	init_data(t_data *data, char **args)
+static void	init_data(t_data *data, char **args)
 {
-	data->nb_philo = args[1];
-	data->time_to_die = args[2];
-	data->time_to_eat = args[3];
-	data->time_to_sleep = args[4];
+	data->nb_philo = ft_atoi(args[1]);
+	data->time_to_die = ft_atoi(args[2]);
+	data->time_to_eat = ft_atoi(args[3]);
+	data->time_to_sleep = ft_atoi(args[4]);
 	if (args[5])
-		data->nb_times_eat = args[5];
+		data->nb_times_eat = ft_atoi(args[5]);
 	else
 		data->nb_times_eat = -1;
 }

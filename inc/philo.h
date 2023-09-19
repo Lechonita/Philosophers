@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:43:57 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/19 15:32:21 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/19 17:13:30 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PHILO_H
 
 # include <pthread.h>
+# include <stdlib.h> // malloc
 # include <string.h> // memset
 # include <stdint.h>
 # include <unistd.h> // unsleep, gettimeofday, write
@@ -41,34 +42,42 @@ typedef struct s_state
 
 typedef struct s_philo
 {
-	int			id;
-	int			nb_eaten;
-	int			lfork;
-	int			rfork;
-	int			alive;
-	int			starving_time;
-	int			starving_time_start;
-	int			starving_time_end;
-	t_state		*state;
-	t_philo		*next;
+	int					id;
+	int					nb_eaten;
+	int					lfork;
+	int					rfork;
+	int					alive;
+	int					starving_time;
+	int					starving_time_start;
+	int					starving_time_end;
+	t_state				*state;
+	struct s_philo		*next;
 }	t_philo;
 
 typedef struct s_fork
 {
-	int			id;
-	int			usage;
-	t_fork		*next;
+	int					id;
+	int					usage;
+	struct s_fork		*next;
 }	t_fork;
 
 typedef struct s_data
 {
-	int			nb_philo;
-	int			time_to_die;
-	int			time_to_eat;
-	int			time_to_sleep;
-	int			nb_times_eat;
-	t_fork		*fork;
-	t_philo		*philo;
+	int					nb_philo;
+	int					time_to_die;
+	int					time_to_eat;
+	int					time_to_sleep;
+	int					nb_times_eat;
+	t_fork				*fork;
+	t_philo				*philo;
 }	t_data;
+
+/* CONTROLS */
+int		check_args(char **args);
+
+/* UTILS */
+int		ft_atoi(const char *nptr);
+void	ft_bzero(void *s, size_t n);
+void	*ft_calloc(size_t nmemb, size_t size);
 
 #endif

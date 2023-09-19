@@ -6,13 +6,13 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:21:22 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/19 14:23:38 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/19 17:13:43 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-ft_free_data(t_data *data)
-{
-	free(data);
-}
+// ft_free_data(t_data *data)
+// {
+// 	free(data);
+// }

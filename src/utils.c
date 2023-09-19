@@ -6,11 +6,36 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:32:00 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/14 19:34:33 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/19 17:07:55 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	ft_atoi(const char *nptr)
+{
+	int	i;
+	int	sign;
+	int	result;
+
+	i = 0;
+	sign = 1;
+	result = 0;
+	while (nptr[i] == ' ' || nptr[i] == '\f' || nptr[i] == '\n'
+		|| nptr[i] == '\t' || nptr[i] == '\r' || nptr[i] == '\v')
+		i++;
+	if (nptr[i] == '-' || nptr[i] == '+')
+	{
+		if (nptr[i++] == '-')
+			sign *= -1;
+	}
+	while (nptr[i] >= '0' && nptr[i] <= '9')
+	{
+		result = result * 10 + (nptr[i] - '0');
+		i++;
+	}
+	return (result * sign);
+}
 
 void	ft_bzero(void *s, size_t n)
 {
