@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:02:26 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/21 16:38:45 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:13:39 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	main(int ac, char **args)
 		data = ft_calloc(1, sizeof(t_data));
 		if (init_data(data, args) == TRUE)
 		{
-			init_forks(data);
+			init_mutex(data);
 			init_philo(data);
 		}
 	}

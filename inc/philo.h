@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:43:57 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/21 16:38:50 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:42:22 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdlib.h> // malloc
 # include <string.h> // memset
 # include <stdint.h>
-# include <unistd.h> // unsleep, gettimeofday, write
+# include <unistd.h> // usleep, gettimeofday, write // 1M microsec = 1 sec
 # include <stdio.h> // malloc, free, printf
 # include <sys/time.h> // pthread_create, pthread_detach, pthread_join,
 						// pthread_mutex_init, pthread_mutex_destroy,
@@ -27,9 +27,9 @@
 # define FALSE 0
 # define TRUE 1
 
-# define EAT 0
-# define SLEEP 1
-# define THINK 2
+// # define EAT 0
+// # define SLEEP 1
+// # define THINK 2
 // # define FREE 4
 // # define USED 5
 
@@ -42,6 +42,10 @@
 # define ERR_THCR "Error: Philo thread creation\n"
 # define ERR_THJN_MAN "Error: Manager thread join\n"
 # define ERR_THJN "Error: Philo thread join\n"
+# define ERR_ALLOC "Error: Memory allocation\n"
+# define ERR_MT_INIT "Error: Mutex forks init\n"
+# define ERR_MTX_DATA "Error: Mutex data init\n"
+# define ERR_TIME "Error: Time could not be set\n"
 
 typedef struct s_philo
 {
@@ -74,7 +78,7 @@ typedef struct s_data
 
 /* THREADS */
 void	*philo_routine(void *ptr);
-void	*manager_routine(t_philo *philo);
+void	*manager_routine(void *ptr);
 void	create_threads(t_data *data, pthread_mutex_t *forks);
 
 /* ERROR */
@@ -87,8 +91,8 @@ void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t nmemb, size_t size);
 
 /* INIT */
-void	init_philo(t_data *data, pthread_mutex_t *forks);
-void	init_forks(pthread_mutex_t *forks, size_t nb_philo);
+void	init_philo(t_data *data);
+void	init_mutex(t_data *data);
 int		init_data(t_data *data, char **args);
 
 #endif

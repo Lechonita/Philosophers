@@ -26,6 +26,7 @@ SRC += init.c
 SRC += utils.c
 SRC += error.c
 SRC += threads.c
+SRC += routine.c
 
 SRC_DIR = ./src
 vpath %.c $(SRC_DIR)

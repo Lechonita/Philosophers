@@ -6,51 +6,58 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 12:11:39 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/21 16:37:56 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:24:59 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	init_philo(t_data *data, pthread_mutex_t *forks)
+void	init_philo(t_data *data)
 {
 	size_t			i;
-	struct timeval	time;
 
 	i = 0;
 	while (i < data->nb_philo)
 	{
-		data->philo[i].id = i;
-		data->philo[i].nb_eaten = 0;
-		data->philo[i].start_time = gettimeofday(&time, NULL);
-		data->philo[i].start_eat = 0;
-		data->philo[i].lfork = &forks[i];
+		data->philo[i].id = i + 1;
+		if (gettimeofday(&data->philo[i].start_time, NULL))
+			free_and_exit(data, ERR_TIME, 2);
+		data->philo[i].last_meal = data->philo[i].start_time;
+		data->philo[i].lfork = &data->forks[i];
 		if (i == 0)
-			data->philo[i].rfork = &forks[data->nb_philo - 1];
+			data->philo[i].rfork = &data->forks[data->nb_philo - 1];
 		else
-			data->philo[i].rfork = &forks[i - 1];
+			data->philo[i].rfork = &data->forks[i - 1];
+		data->philo[i].data = data;
 		i++;
 	}
 }
 
-void	init_forks(pthread_mutex_t *forks, size_t nb_philo)
+void	init_mutex(t_data *data)
 {
 	size_t	i;
 
 	i = 0;
-	while (i < nb_philo)
+	while (i < data->nb_philo)
 	{
-		if (pthread_mutex_init(&forks[i], NULL) != 0)
-			write(2, "Error: Mutex forks init\n", 24);
-		i--;
+		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
+			free_all_exit(data, ERR_MT_INIT, 1);
+		i++;
 	}
+	if (pthread_mutex_init(&data->dead_mtx, NULL) != 0
+		|| pthread_mutex_init(&data->all_ate_mtx, NULL) != 0
+		|| pthread_mutex_init(&data->end_mtx, NULL) != 0)
+		free_all_exit(data, ERR_MTX_DATA, 1);
 }
 
 static void	init_alloc(t_data *data)
 {
-	data->forks = malloc(sizeof(pthread_mutex_t) * data->nb_philo)
+	data->forks = malloc(sizeof(pthread_mutex_t) * data->nb_philo);
 	if (!data->forks)
-		destroy_all
+		free_all_exit(data, ERR_ALLOC, 0);
+	data->philo = malloc(sizeof(t_philo) * data->nb_philo);
+	if (!data->philo)
+		free_all_exit(data, ERR_ALLOC, 0);
 }
 
 int	init_data(t_data *data, char **args)
