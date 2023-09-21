@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:02:26 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/21 17:13:39 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/21 18:13:43 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	check_args(char **args)
 
 int	main(int ac, char **args)
 {
-	t_data				*data;
+	t_data			*data;
 
 	if (check_args(args) == TRUE && (ac == 5 || ac == 6))
 	{
@@ -59,6 +59,8 @@ int	main(int ac, char **args)
 		{
 			init_mutex(data);
 			init_philo(data);
+			create_threads(data);
+			free_struct(data, NULL, 4);
 		}
 	}
 	else

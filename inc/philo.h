@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:43:57 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/21 17:42:22 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/21 18:13:28 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ typedef struct s_data
 /* THREADS */
 void	*philo_routine(void *ptr);
 void	*manager_routine(void *ptr);
-void	create_threads(t_data *data, pthread_mutex_t *forks);
+void	create_threads(t_data *data);
 
 /* ERROR */
 void	destroy_all(t_data *data, pthread_mutex_t *forks, char *str);
