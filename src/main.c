@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:02:26 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/19 17:07:08 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/21 10:53:49 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,31 +19,50 @@
 	Celui qui aura la plus petite et plus grande fourchette n'en prendra
 	donc aucune. */
 
-/* Créer un thread manager / serveur pour qui donne la permission aux philos
-	de manger ? */
+/* Créer un thread manager / serveur qui donne la permission aux philos
+	de manger. Mais aussi check s'il y a un mort.
+	Si oui, on arrête le programme. */
 
-static void	init_data(t_data *data, char **args)
+/* Rajouter une fonction qui fait attendre que tous les threads soient
+	créés avant qu'ils ne s'activent. Comme ca tout le monde commence en même
+	temps, personne ne prend de l'avance. 
+	Est-ce que ca peut être contré direct avec un timeofday chacun ? */
+
+static int	check_args(char **args)
 {
-	data->nb_philo = ft_atoi(args[1]);
-	data->time_to_die = ft_atoi(args[2]);
-	data->time_to_eat = ft_atoi(args[3]);
-	data->time_to_sleep = ft_atoi(args[4]);
-	if (args[5])
-		data->nb_times_eat = ft_atoi(args[5]);
-	else
-		data->nb_times_eat = -1;
+	int	i;
+	int	j;
+
+	i = 0;
+	while (args[i])
+	{
+		j = 0;
+		while (args[i][j])
+		{
+			if (args[i][j] >= '0' && args[i][j] <= '9')
+				return (FALSE);
+			j++;
+		}
+		i++;
+	}
+	return (TRUE);
 }
 
 int	main(int ac, char **args)
 {
-	t_data	*data;
+	t_data				*data;
+	pthread_mutex_t		forks[MAX_PHILO];
 
-	if (check_args(args) && (ac == 6 || ac == 7))
+	if (check_args(args) == TRUE && (ac == 5 || ac == 6))
 	{
 		data = ft_calloc(1, sizeof(t_data));
-		init_data(data, args);
+		if (init_data(data, args) == TRUE)
+		{
+			init_forks(forks, ft_atoi(args[1]));
+			init_philo(data, forks, args);
+		}
 	}
 	else
-		printf("Error: bad input arguments\n");
+		return (write(1, ERR_ARGS, 31));
 	return (0);
 }

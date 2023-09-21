@@ -22,10 +22,10 @@ INCLUDES += -I $(INC_DIR)
 ################################### Sources ####################################
 
 SRC += main.c
+SRC += init.c
 SRC += utils.c
 SRC += error.c
-SRC += controls.c
-SRC += free.c
+SRC += threads.c
 
 SRC_DIR = ./src
 vpath %.c $(SRC_DIR)
