@@ -6,11 +6,21 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:32:00 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/19 17:07:55 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/21 11:56:10 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	ft_strlen(const char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
 
 int	ft_atoi(const char *nptr)
 {

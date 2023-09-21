@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:02:26 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/21 10:53:49 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:38:45 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,14 @@ static int	check_args(char **args)
 int	main(int ac, char **args)
 {
 	t_data				*data;
-	pthread_mutex_t		forks[MAX_PHILO];
 
 	if (check_args(args) == TRUE && (ac == 5 || ac == 6))
 	{
 		data = ft_calloc(1, sizeof(t_data));
 		if (init_data(data, args) == TRUE)
 		{
-			init_forks(forks, ft_atoi(args[1]));
-			init_philo(data, forks, args);
+			init_forks(data);
+			init_philo(data);
 		}
 	}
 	else
