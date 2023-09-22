@@ -23,10 +23,12 @@ INCLUDES += -I $(INC_DIR)
 
 SRC += main.c
 SRC += init.c
+SRC += libft.c
 SRC += utils.c
 SRC += error.c
 SRC += threads.c
-SRC += routine.c
+SRC += routine_manager.c
+SRC += routine_philo.c
 
 SRC_DIR = ./src
 vpath %.c $(SRC_DIR)

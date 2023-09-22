@@ -6,62 +6,29 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:32:00 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/21 11:56:10 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:39:37 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_strlen(const char *s)
+void	print_state_message(t_philo *philo, char *str, int id)
 {
-	int	i;
+	size_t	tv;
 
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+	// printf("Debut de print state message\n");
+	pthread_mutex_lock(philo->write_mtx);
+	tv = ft_gettimeofday(philo->data) - philo->data->time_start;
+	printf("%zu %d %s\n", tv, id + 1, str);
+	pthread_mutex_unlock(philo->write_mtx);
+	// printf("Fin de print state message\n");
 }
 
-int	ft_atoi(const char *nptr)
+size_t	ft_gettimeofday(t_data *data)
 {
-	int	i;
-	int	sign;
-	int	result;
+	struct timeval	tv;
 
-	i = 0;
-	sign = 1;
-	result = 0;
-	while (nptr[i] == ' ' || nptr[i] == '\f' || nptr[i] == '\n'
-		|| nptr[i] == '\t' || nptr[i] == '\r' || nptr[i] == '\v')
-		i++;
-	if (nptr[i] == '-' || nptr[i] == '+')
-	{
-		if (nptr[i++] == '-')
-			sign *= -1;
-	}
-	while (nptr[i] >= '0' && nptr[i] <= '9')
-	{
-		result = result * 10 + (nptr[i] - '0');
-		i++;
-	}
-	return (result * sign);
-}
-
-void	ft_bzero(void *s, size_t n)
-{
-	while (n-- > 0)
-		((unsigned char *)s)[n] = '\0';
-}
-
-void	*ft_calloc(size_t nmemb, size_t size)
-{
-	void	*ptr;
-
-	if (nmemb != 0 && size > ((SIZE_MAX) - 1) / nmemb)
-		return (NULL);
-	ptr = (void *)malloc(nmemb * size);
-	if (!ptr)
-		return (NULL);
-	ft_bzero(ptr, nmemb * size);
-	return (ptr);
+	if (gettimeofday(&tv, NULL) != 0)
+		free_all_exit(data, ERR_TIME, 0);
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }

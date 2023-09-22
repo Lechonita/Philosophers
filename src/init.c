@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 12:11:39 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/21 17:24:59 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/22 14:59:38 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,15 @@ void	init_philo(t_data *data)
 	while (i < data->nb_philo)
 	{
 		data->philo[i].id = i + 1;
-		if (gettimeofday(&data->philo[i].start_time, NULL))
-			free_and_exit(data, ERR_TIME, 2);
-		data->philo[i].last_meal = data->philo[i].start_time;
+		data->philo[i].last_meal = data->time_start;
 		data->philo[i].lfork = &data->forks[i];
 		if (i == 0)
 			data->philo[i].rfork = &data->forks[data->nb_philo - 1];
 		else
 			data->philo[i].rfork = &data->forks[i - 1];
+		data->philo[i].dead_mtx = &data->dead_mtx;
+		data->philo[i].meal_mtx = &data->meal_mtx;
+		data->philo[i].write_mtx = &data->write_mtx;
 		data->philo[i].data = data;
 		i++;
 	}
@@ -41,12 +42,12 @@ void	init_mutex(t_data *data)
 	while (i < data->nb_philo)
 	{
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
-			free_all_exit(data, ERR_MT_INIT, 1);
+			free_all_exit(data, ERR_MTX_INIT, 1);
 		i++;
 	}
 	if (pthread_mutex_init(&data->dead_mtx, NULL) != 0
-		|| pthread_mutex_init(&data->all_ate_mtx, NULL) != 0
-		|| pthread_mutex_init(&data->end_mtx, NULL) != 0)
+		|| pthread_mutex_init(&data->meal_mtx, NULL) != 0
+		|| pthread_mutex_init(&data->write_mtx, NULL) != 0)
 		free_all_exit(data, ERR_MTX_DATA, 1);
 }
 
@@ -63,9 +64,13 @@ static void	init_alloc(t_data *data)
 int	init_data(t_data *data, char **args)
 {
 	if (ft_atoi(args[1]) > 0)
-		data->nb_philo = ft_atoi(args[1]);
+		data->nb_philo = (size_t)ft_atoi(args[1]);
 	else
 		return (write(1, ERR_NB_PHILO, 38), FALSE);
+	if (args[5] && ft_atoi(args[5]) >= 0)
+		data->nb_times_eat = (size_t)ft_atoi(args[5]);
+	else
+		data->nb_times_eat = -1;
 	if (ft_atoi(args[2]) >= 0)
 		data->time_to_die = ft_atoi(args[2]);
 	else
@@ -78,10 +83,7 @@ int	init_data(t_data *data, char **args)
 		data->time_to_sleep = ft_atoi(args[4]);
 	else
 		return (write(1, ERR_T_SLEEP, 29), FALSE);
-	if (args[5] && ft_atoi(args[5]) >= 0)
-		data->nb_times_eat = ft_atoi(args[5]);
-	else
-		data->nb_times_eat = -1;
+	data->time_start = ft_gettimeofday(data);
 	init_alloc(data);
 	return (TRUE);
 }

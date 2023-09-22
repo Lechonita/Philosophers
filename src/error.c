@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:35:48 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/21 17:09:09 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/22 14:48:38 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	free_all_exit(t_data *data, char *str, int error)
 			i++;
 		}
 		pthread_mutex_destroy(&data->dead_mtx);
-		pthread_mutex_destroy(&data->all_ate_mtx);
-		pthread_mutex_destroy(&(data->end_mtx));
+		pthread_mutex_destroy(&data->meal_mtx);
+		pthread_mutex_destroy(&(data->write_mtx));
 	}
 	if (data->philo)
 		free(data->philo);

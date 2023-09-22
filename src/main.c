@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:02:26 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/21 18:13:43 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/22 17:03:13 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ static int	check_args(char **args)
 	int	i;
 	int	j;
 
-	i = 0;
+	i = 1;
 	while (args[i])
 	{
 		j = 0;
 		while (args[i][j])
 		{
-			if (args[i][j] >= '0' && args[i][j] <= '9')
+			if (args[i][j] <= '0' && args[i][j] >= '9')
 				return (FALSE);
 			j++;
 		}
@@ -54,13 +54,14 @@ int	main(int ac, char **args)
 
 	if (check_args(args) == TRUE && (ac == 5 || ac == 6))
 	{
+		printf("    === Entering Philo ===\n");
 		data = ft_calloc(1, sizeof(t_data));
 		if (init_data(data, args) == TRUE)
 		{
 			init_mutex(data);
 			init_philo(data);
 			create_threads(data);
-			free_struct(data, NULL, 4);
+			free_all_exit(data, NULL, 4);
 		}
 	}
 	else
