@@ -9,7 +9,7 @@ NAME = philo
 FLAGS = -Wall -Wextra -Werror
 
 ifeq ($(debug), true)
-	FLAGS += -g3 -fsanitize=address,undefeined
+	FLAGS += -g3 -fsanitize=address,undefined
 endif
 
 CC = cc

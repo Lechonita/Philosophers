@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:43:57 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/22 15:58:00 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/22 17:55:20 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,10 @@ void	*philo_routine(void *ptr);
 void	*manager_routine(void *ptr);
 void	create_threads(t_data *data);
 
-/* ROUTINE MANAGER */
+/* ROUTINE */
+size_t	measure_last_meal(t_philo *philo, size_t last_meal);
 int		all_ate_flag(t_philo *philo);
 int		dead_flag(t_philo *philo);
-
-/* ROUTINE PHILO*/
 void	ft_eat(t_philo *philo);
 void	ft_sleep(t_philo *philo);
 void	ft_think(t_philo *philo);
