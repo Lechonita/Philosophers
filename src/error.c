@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:35:48 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/25 15:48:16 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/25 17:07:34 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ void	free_all_exit(t_data *data, char *str, int error)
 	}
 	if (data->philo)
 		free(data->philo);
-	data->philo = NULL;
 	if (data->forks)
 		free(data->forks);
-	data->forks = NULL;
 	exit(1);
 }

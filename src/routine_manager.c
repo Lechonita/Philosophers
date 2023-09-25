@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:44:36 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/25 15:52:03 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/25 16:22:10 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,8 @@ static int	philo_is_dead(t_philo *philo)
 {
 	// printf("\nDebut de philo is dead %zu\n", philo->id);
 	pthread_mutex_lock(philo->meal_mtx);
-	// if (gettimeofday(&tv, NULL) - philo->last_meal >= philo->data->time_to_die)
 	if (measure_last_meal(philo, philo->last_meal) >= philo->data->time_to_die)
 	{
-		// printf("  %d  -  %zu  = %lu\n", gettimeofday(&tv, NULL), philo->last_meal, (gettimeofday(&tv, NULL) - philo->last_meal));
-		// printf("  %zu\n", philo->data->time_to_die);
-		// printf("  %lu >= %zu ?\n", (gettimeofday(&tv, NULL) - philo->last_meal), philo->data->time_to_die);
 		pthread_mutex_unlock(philo->meal_mtx);
 		return (TRUE);
 	}

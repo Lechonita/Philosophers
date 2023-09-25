@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:02:26 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/25 15:19:44 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/25 17:01:04 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	check_args(char **args)
 	return (TRUE);
 }
 
-int	main(int ac, char **args)
+int	main(int ac, char **args)	
 {
 	t_data			*data;
 

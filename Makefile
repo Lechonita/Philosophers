@@ -10,6 +10,8 @@ FLAGS = -Wall -Wextra -Werror
 
 ifeq ($(debug), true)
 	FLAGS += -g3 -fsanitize=thread
+#-g3 -fsanitize=thread
+#-g
 endif
 
 CC = cc
