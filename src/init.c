@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 12:11:39 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/22 14:59:38 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/25 15:57:10 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,10 @@ int	init_data(t_data *data, char **args)
 		data->nb_philo = (size_t)ft_atoi(args[1]);
 	else
 		return (write(1, ERR_NB_PHILO, 38), FALSE);
-	if (args[5] && ft_atoi(args[5]) >= 0)
+	if (args[5] && ft_atoi(args[5]) > 0)
 		data->nb_times_eat = (size_t)ft_atoi(args[5]);
+	else if (args[5] && ft_atoi(args[5]) < 0)
+		return (write(1, ERR_NB_EAT, 31), FALSE);
 	else
 		data->nb_times_eat = -1;
 	if (ft_atoi(args[2]) >= 0)

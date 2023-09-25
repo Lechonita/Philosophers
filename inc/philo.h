@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:43:57 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/22 17:55:20 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/25 11:51:23 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define ERR_T_EAT "Error: Invalid time to eat\n"
 # define ERR_T_SLEEP "Error: Invalid time to sleep\n"
 # define ERR_T_INPUT "Error: Invalid time input\n"
+# define ERR_NB_EAT "Error: Invalid number of meals\n"
 # define ERR_THCR_MAN "Error: Manager thread creation\n"
 # define ERR_THCR "Error: Philo thread creation\n"
 # define ERR_THJN_MAN "Error: Manager thread join\n"
@@ -99,7 +100,7 @@ void	ft_sleep(t_philo *philo);
 void	ft_think(t_philo *philo);
 
 /* UTILS */
-void	print_state_message(t_philo *philo, char *str, int id);
+void	print_status_message(t_philo *philo, char *str, int id);
 size_t	ft_gettimeofday(t_data *data);
 
 /* LIBFT */

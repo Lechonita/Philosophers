@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:44:36 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/22 18:10:45 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/25 15:52:03 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	philo_finish_all_meals(t_philo *philo)
 {
 	// printf("\nDebut de philo finish all meals\n");
 	pthread_mutex_lock(philo->meal_mtx);
-	if (philo->nb_eaten == philo->data->nb_times_eat)
+	if (philo->nb_eaten > 0 && philo->nb_eaten == philo->data->nb_times_eat)
 	{
 		pthread_mutex_unlock(philo->meal_mtx);
 		return (TRUE);
@@ -91,11 +91,13 @@ int	dead_flag(t_philo *philo)
 	{
 		if (philo_is_dead(&philo[i]) == TRUE)
 		{
-			print_state_message(&philo[i], "died", i);
+			print_status_message(&philo[i], "died", i + 1);
 			pthread_mutex_lock(philo->dead_mtx);
+			pthread_mutex_lock(philo->write_mtx);
 			philo->data->dead = 1;
 			philo->data->end = 1;
 			pthread_mutex_unlock(philo->dead_mtx);
+			pthread_mutex_unlock(philo->write_mtx);
 			return (TRUE);
 		}
 		i++;

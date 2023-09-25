@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:02:26 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/22 17:03:13 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/25 15:19:44 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	main(int ac, char **args)
 
 	if (check_args(args) == TRUE && (ac == 5 || ac == 6))
 	{
-		printf("    === Entering Philo ===\n");
 		data = ft_calloc(1, sizeof(t_data));
 		if (init_data(data, args) == TRUE)
 		{
