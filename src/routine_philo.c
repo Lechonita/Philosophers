@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 15:40:34 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/26 15:31:34 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:23:19 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,25 @@ void	ft_eat(t_philo *philo)
 		usleep(philo->data->time_to_die * 1000);
 		return ;
 	}
-	printf("Pour philo id = %zu\n", philo->id);
-	if ((philo->id & 1) == 0 && ft_eat_right_handed(philo) == TRUE)
+	pthread_mutex_lock(philo->lfork);
+	print_status_message(philo, "has taken a fork", philo->id);
+	if (check_if_dead_or_ate(philo))
+	{
+		pthread_mutex_unlock(philo->lfork);
 		return ;
-	else if (ft_eat_left_handed(philo) == TRUE)
+	}
+	pthread_mutex_lock(philo->rfork);
+	print_status_message(philo, "has taken a fork", philo->id);
+	if (check_if_dead_or_ate(philo))
+	{
+		pthread_mutex_unlock(philo->rfork);
+		pthread_mutex_unlock(philo->lfork);
 		return ;
+	}
+	// if ((philo->id & 1) == 0 && ft_eat_right_handed(philo) == TRUE)
+	// 	return ;
+	// else if (ft_eat_left_handed(philo) == TRUE)
+	// 	return ;
 	// if (lock_forks_mutex(philo) == TRUE)
 	// 	return ;
 	print_status_message(philo, "is eating", philo->id);
@@ -37,7 +51,9 @@ void	ft_eat(t_philo *philo)
 	pthread_mutex_lock(philo->meal_mtx);
 	philo->nb_eaten += 1;
 	pthread_mutex_unlock(philo->meal_mtx);
-	unlock_forks_mutex(philo);
+	pthread_mutex_unlock(philo->rfork);
+	pthread_mutex_unlock(philo->lfork);
+	// unlock_forks_mutex(philo);
 }
 
 void	ft_sleep(t_philo *philo)

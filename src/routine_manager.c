@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:44:36 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/26 16:11:58 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:09:52 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ int	all_ate_flag(t_philo *philo)
 	if (count == philo->data->nb_philo)
 	{
 		pthread_mutex_lock(philo->meal_mtx);
+		pthread_mutex_lock(philo->dead_mtx);
 		philo->data->all_ate = 1;
 		philo->data->end = 1;
+		pthread_mutex_unlock(philo->dead_mtx);
 		pthread_mutex_unlock(philo->meal_mtx);
 		return (TRUE);
 	}
