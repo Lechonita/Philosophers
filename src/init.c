@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 12:11:39 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/25 16:18:45 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/26 11:52:47 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init_philo(t_data *data)
 {
-	size_t			i;
+	size_t	i;
 
 	i = 0;
 	while (i < data->nb_philo)
@@ -29,6 +29,7 @@ void	init_philo(t_data *data)
 		data->philo[i].dead_mtx = &data->dead_mtx;
 		data->philo[i].meal_mtx = &data->meal_mtx;
 		data->philo[i].write_mtx = &data->write_mtx;
+		data->philo[i].nb_eaten = 0;
 		data->philo[i].data = data;
 		i++;
 	}
@@ -53,6 +54,7 @@ void	init_mutex(t_data *data)
 
 static void	init_alloc(t_data *data)
 {
+	// printf("NB PHILO START : %zu\n", data->time_to_die);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->nb_philo);
 	if (!data->forks)
 		free_all_exit(data, ERR_ALLOC, 0);
@@ -69,19 +71,19 @@ int	init_data(t_data *data, char **args)
 		return (write(1, ERR_NB_PHILO, 38), FALSE);
 	if (args[5] && ft_atoi(args[5]) > 0)
 		data->nb_times_eat = (size_t)ft_atoi(args[5]);
-	else if (args[5] && ft_atoi(args[5]) < 0)
+	else if (args[5] && ft_atoi(args[5]) <= 0)
 		return (write(1, ERR_NB_EAT, 31), FALSE);
 	else
 		data->nb_times_eat = -1;
-	if (ft_atoi(args[2]) >= 0)
+	if (ft_atoi(args[2]) > 0)
 		data->time_to_die = ft_atoi(args[2]);
 	else
 		return (write(1, ERR_T_DIE, 27), FALSE);
-	if (ft_atoi(args[3]) >= 0)
+	if (ft_atoi(args[3]) > 0)
 		data->time_to_eat = ft_atoi(args[3]);
 	else
 		return (write(1, ERR_T_EAT, 27), FALSE);
-	if (ft_atoi(args[4]) >= 0)
+	if (ft_atoi(args[4]) > 0)
 		data->time_to_sleep = ft_atoi(args[4]);
 	else
 		return (write(1, ERR_T_SLEEP, 29), FALSE);

@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:44:36 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/25 16:22:10 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/26 12:01:08 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 static int	philo_finish_all_meals(t_philo *philo)
 {
-	// printf("\nDebut de philo finish all meals\n");
+	// printf("\nDebut de philo finish all meals %zu\n", philo->nb_eaten);
 	pthread_mutex_lock(philo->meal_mtx);
-	if (philo->nb_eaten > 0 && philo->nb_eaten == philo->data->nb_times_eat)
+	if (philo->nb_eaten > 0
+		&& philo->nb_eaten >= philo->data->nb_times_eat)
 	{
 		pthread_mutex_unlock(philo->meal_mtx);
 		return (TRUE);

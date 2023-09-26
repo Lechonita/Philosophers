@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 12:13:17 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/22 12:13:54 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/26 11:30:24 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	ft_atoi(const char *nptr)
 	}
 	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{
+		if ((int)(result * 10 + (nptr[i] - '0')) < 0)
+			return (-1);
 		result = result * 10 + (nptr[i] - '0');
 		i++;
 	}

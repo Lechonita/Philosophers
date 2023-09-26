@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:02:26 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/25 17:01:04 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/26 11:13:06 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,17 @@ static int	check_args(char **args)
 
 int	main(int ac, char **args)	
 {
-	t_data			*data;
+	t_data	data;
 
 	if (check_args(args) == TRUE && (ac == 5 || ac == 6))
 	{
-		data = ft_calloc(1, sizeof(t_data));
-		if (init_data(data, args) == TRUE)
+		data = (t_data){0};
+		if (init_data(&data, args) == TRUE)
 		{
-			init_mutex(data);
-			init_philo(data);
-			create_threads(data);
-			free_all_exit(data, NULL, 4);
+			init_mutex(&data);
+			init_philo(&data);
+			create_threads(&data);
+			free_all_exit(&data, NULL, 4);
 		}
 	}
 	else
