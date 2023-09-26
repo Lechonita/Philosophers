@@ -31,6 +31,7 @@ SRC += error.c
 SRC += threads.c
 SRC += routine_manager.c
 SRC += routine_philo.c
+SRC += routine_philo_utils.c
 
 SRC_DIR = ./src
 vpath %.c $(SRC_DIR)

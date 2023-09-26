@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:43:57 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/25 16:18:37 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/26 15:00:50 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,21 @@ void	create_threads(t_data *data);
 size_t	measure_last_meal(t_philo *philo, size_t last_meal);
 int		all_ate_flag(t_philo *philo);
 int		dead_flag(t_philo *philo);
+int		ft_eat_left_handed(t_philo *philo);
+int		ft_eat_right_handed(t_philo *philo);
 void	ft_eat(t_philo *philo);
 void	ft_sleep(t_philo *philo);
 void	ft_think(t_philo *philo);
 
+/* ROUTINE UTILS */
+void	unlock_forks_mutex(t_philo *philo);
+int		ft_eat_left_handed(t_philo *philo);
+int		ft_eat_right_handed(t_philo *philo);
+// int		lock_forks_mutex(t_philo *philo);
+int		check_if_dead(t_philo *philo);
+
 /* UTILS */
+int		check_if_dead(t_philo *philo);
 void	print_status_message(t_philo *philo, char *str, int id);
 size_t	ft_gettimeofday(t_data *data);
 

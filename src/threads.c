@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 11:14:52 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/26 12:14:41 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/26 15:58:43 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,7 @@ void	*philo_routine(void *ptr)
 {
 	t_philo	*philo;
 
-	// printf("\nDebut de philo routine\n");
 	philo = (t_philo *)ptr;
-	// if (philo->id % 2 == 0)
-	// 	usleep (100);
 	while (check_stop_status(philo) == FALSE)
 	{
 		ft_eat(philo);
@@ -47,7 +44,6 @@ void	*philo_routine(void *ptr)
 		if (check_stop_status(philo))
 			return (NULL);
 	}
-	// printf("Fin de philo routine\n");
 	return (NULL);
 }
 
@@ -55,7 +51,6 @@ void	*manager_routine(void *ptr)
 {
 	t_philo	*philo;
 
-	// printf("\nDebut de manager routine\n");
 	philo = (t_philo *)ptr;
 	while (1)
 	{
@@ -63,7 +58,6 @@ void	*manager_routine(void *ptr)
 			break ;
 		usleep(100);
 	}
-	// printf("Fin de manager routine\n");
 	return (NULL);
 }
 
@@ -72,13 +66,13 @@ void	create_threads(t_data *data)
 	pthread_t	manager;
 	size_t		i;
 
-	// printf("\nDebut de create threads\n");
 	if (pthread_create(&manager, NULL, &manager_routine, data->philo) != 0)
 		free_all_exit(data, ERR_THCR_MAN, 3);
 	i = 0;
 	while (i < data->nb_philo)
 	{
-		if (pthread_create(&data->philo[i].thread, NULL, &philo_routine, &data->philo[i]))
+		if (pthread_create(&data->philo[i].thread,
+				NULL, &philo_routine, &data->philo[i]))
 			free_all_exit(data, ERR_THCR, 3);
 		i++;
 	}
@@ -91,5 +85,4 @@ void	create_threads(t_data *data)
 			free_all_exit(data, ERR_THJN, 3);
 		i++;
 	}
-	// printf("Fin de create threads\n");
 }

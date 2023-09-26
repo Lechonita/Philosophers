@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 17:44:36 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/26 12:01:08 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:11:58 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,22 +83,21 @@ int	dead_flag(t_philo *philo)
 	size_t		i;
 
 	i = 0;
-	// printf("\nDebut de dead flag %zu\n", philo->id);
 	while (i < philo->data->nb_philo)
 	{
 		if (philo_is_dead(&philo[i]) == TRUE)
 		{
 			print_status_message(&philo[i], "died", i + 1);
 			pthread_mutex_lock(philo->dead_mtx);
-			pthread_mutex_lock(philo->write_mtx);
 			philo->data->dead = 1;
+			pthread_mutex_unlock(philo->dead_mtx);
+			usleep(100);
+			pthread_mutex_lock(philo->dead_mtx);
 			philo->data->end = 1;
 			pthread_mutex_unlock(philo->dead_mtx);
-			pthread_mutex_unlock(philo->write_mtx);
 			return (TRUE);
 		}
 		i++;
 	}
-	// printf("Fin de dead flag %zu\n", philo->id);
 	return (FALSE);
 }
