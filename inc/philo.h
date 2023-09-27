@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:43:57 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/26 17:23:49 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/27 14:26:18 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ typedef struct s_philo
 	size_t				id;
 	size_t				nb_eaten;
 	size_t				last_meal;
-	pthread_mutex_t		*lfork;
-	pthread_mutex_t		*rfork;
+	// pthread_mutex_t		*lfork;
+	// pthread_mutex_t		*rfork;
 	pthread_mutex_t		*dead_mtx;
 	pthread_mutex_t		*meal_mtx;
 	pthread_mutex_t		*write_mtx;

@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 12:11:39 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/26 11:52:47 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/27 15:59:28 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	init_philo(t_data *data)
 	{
 		data->philo[i].id = i + 1;
 		data->philo[i].last_meal = data->time_start;
-		data->philo[i].lfork = &data->forks[i];
-		if (i == 0)
-			data->philo[i].rfork = &data->forks[data->nb_philo - 1];
-		else
-			data->philo[i].rfork = &data->forks[i - 1];
+		// data->philo[i].lfork = &data->forks[i];
+		// if (i == 0)
+		// 	data->philo[i].rfork = &data->forks[data->nb_philo - 1];
+		// else
+		// 	data->philo[i].rfork = &data->forks[i - 1];
 		data->philo[i].dead_mtx = &data->dead_mtx;
 		data->philo[i].meal_mtx = &data->meal_mtx;
 		data->philo[i].write_mtx = &data->write_mtx;
@@ -54,7 +54,6 @@ void	init_mutex(t_data *data)
 
 static void	init_alloc(t_data *data)
 {
-	// printf("NB PHILO START : %zu\n", data->time_to_die);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->nb_philo);
 	if (!data->forks)
 		free_all_exit(data, ERR_ALLOC, 0);

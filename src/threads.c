@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 11:14:52 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/26 17:13:46 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/27 16:18:04 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ void	*philo_routine(void *ptr)
 	while (check_stop_status(philo) == FALSE)
 	{
 		ft_eat(philo);
-		if (check_stop_status(philo))
-			return (NULL);
+		// if (check_stop_status(philo))
+		// 	return (NULL);
 		ft_sleep(philo);
-		if (check_stop_status(philo))
-			return (NULL);
+		// if (check_stop_status(philo))
+		// 	return (NULL);
 		ft_think(philo);
-		if (check_stop_status(philo))
-			return (NULL);
+		// if (check_stop_status(philo))
+		// 	return (NULL);
 	}
 	return (NULL);
 }

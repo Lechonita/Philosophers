@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:48:23 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/26 17:23:56 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/27 10:47:18 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,15 @@
 
 int	check_if_dead_or_ate(t_philo *philo)
 {
-	pthread_mutex_lock(philo->dead_mtx);
 	pthread_mutex_lock(philo->meal_mtx);
+	pthread_mutex_lock(philo->dead_mtx);
 	if (philo->data->dead || philo->nb_eaten >= philo->data->nb_times_eat)
 	{
-		pthread_mutex_unlock(philo->meal_mtx);
 		pthread_mutex_unlock(philo->dead_mtx);
+		pthread_mutex_unlock(philo->meal_mtx);
 		return (TRUE);
 	}
-	pthread_mutex_unlock(philo->meal_mtx);
 	pthread_mutex_unlock(philo->dead_mtx);
+	pthread_mutex_unlock(philo->meal_mtx);
 	return (FALSE);
 }
