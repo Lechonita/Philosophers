@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 12:11:39 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/27 15:59:28 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/27 17:20:42 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,12 @@ void	init_philo(t_data *data)
 	while (i < data->nb_philo)
 	{
 		data->philo[i].id = i + 1;
+		data->philo[i].nb_eaten = 0;
 		data->philo[i].last_meal = data->time_start;
-		// data->philo[i].lfork = &data->forks[i];
-		// if (i == 0)
-		// 	data->philo[i].rfork = &data->forks[data->nb_philo - 1];
-		// else
-		// 	data->philo[i].rfork = &data->forks[i - 1];
+		data->philo[i].dead = &data->dead;
 		data->philo[i].dead_mtx = &data->dead_mtx;
 		data->philo[i].meal_mtx = &data->meal_mtx;
 		data->philo[i].write_mtx = &data->write_mtx;
-		data->philo[i].nb_eaten = 0;
 		data->philo[i].data = data;
 		i++;
 	}

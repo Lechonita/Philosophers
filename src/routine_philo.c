@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 15:40:34 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/27 16:14:21 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/27 17:12:16 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	ft_pick_forks(t_philo *philo)
 void	ft_eat(t_philo *philo)
 {
 	pthread_mutex_lock(philo->dead_mtx);
-	if (philo->data->end == 1)
+	if (philo->data->end == 1 || *philo->dead == 1)
 	{
 		pthread_mutex_unlock(philo->dead_mtx);
 		return ;
@@ -97,16 +97,13 @@ void	ft_eat(t_philo *philo)
 
 void	ft_sleep(t_philo *philo)
 {
-	// pthread_mutex_lock(philo->meal_mtx);
 	pthread_mutex_lock(philo->dead_mtx);
-	if (philo->data->end == 1)
+	if (philo->data->end == 1 || *philo->dead == 1)
 	{
 		pthread_mutex_unlock(philo->dead_mtx);
-		// pthread_mutex_unlock(philo->meal_mtx);
 		return ;
 	}
 	pthread_mutex_unlock(philo->dead_mtx);
-	// pthread_mutex_unlock(philo->meal_mtx);
 	print_status_message(philo, "is sleeping", philo->id);
 	usleep(philo->data->time_to_sleep * 1000);
 }
@@ -114,7 +111,7 @@ void	ft_sleep(t_philo *philo)
 void	ft_think(t_philo *philo)
 {
 	pthread_mutex_lock(philo->dead_mtx);
-	if (philo->data->end == 1)
+	if (philo->data->end == 1 || *philo->dead == 1)
 	{
 		pthread_mutex_unlock(philo->dead_mtx);
 		return ;
