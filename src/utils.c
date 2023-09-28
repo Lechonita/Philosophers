@@ -6,11 +6,36 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:32:00 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/28 17:14:01 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/28 18:32:40 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	free_all_exit(t_data *data, char *str, int error)
+{
+	size_t		i;
+
+	i = 0;
+	if (str)
+		printf("%s\n", str);
+	if (error != 0)
+	{
+		while (i < data->nb_philo)
+		{
+			pthread_mutex_destroy(&data->forks[i]);
+			i++;
+		}
+		pthread_mutex_destroy(&data->dead_mtx);
+		pthread_mutex_destroy(&data->meal_mtx);
+		pthread_mutex_destroy(&data->write_mtx);
+	}
+	if (data->philo)
+		free(data->philo);
+	if (data->forks)
+		free(data->forks);
+	exit(1);
+}
 
 void	print_status_message(t_philo *philo, char *str, int id)
 {

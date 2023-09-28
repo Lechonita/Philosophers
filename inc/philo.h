@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:43:57 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/28 18:25:32 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/28 18:31:47 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ int		last_philo_pick_fork(t_philo *philo);
 int		first_philo_pick_fork(t_philo *philo);
 
 /* UTILS */
+void	free_all_exit(t_data *data, char *str, int error);
 void	print_status_message(t_philo *philo, char *str, int id);
 size_t	ft_gettimeofday(t_data *data);
 
@@ -126,8 +127,5 @@ int		ft_strlen(const char *s);
 int		ft_atoi(const char *nptr);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t nmemb, size_t size);
-
-/* ERROR */
-void	free_all_exit(t_data *data, char *str, int error);
 
 #endif

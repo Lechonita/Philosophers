@@ -6,37 +6,11 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 15:40:34 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/28 18:25:14 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/28 19:02:48 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-
-// void	ft_release_forks(t_philo *philo)
-// {
-// 	if (philo->id == 1)
-// 	{
-// 		pthread_mutex_unlock(&philo->data->forks[philo->data->nb_philo - 1]);
-// 		pthread_mutex_unlock(&philo->data->forks[0]);
-// 	}
-// 	else if (philo->id == philo->data->nb_philo)
-// 	{
-// 		pthread_mutex_unlock
-// 		(&philo->data->forks[philo->data->nb_philo - (philo->id - 1)]);
-// 		pthread_mutex_unlock(&philo->data->forks[0]);
-// 	}
-// 	else if ((philo->id & 1) == 0)
-// 	{
-// 		pthread_mutex_unlock(&philo->data->forks[philo->id]);
-// 		pthread_mutex_unlock(&philo->data->forks[philo->id - 1]);
-// 	}
-// 	else
-// 	{
-// 		pthread_mutex_unlock(&philo->data->forks[philo->id - 1]);
-// 		pthread_mutex_unlock(&philo->data->forks[philo->id]);
-// 	}
-// }
 
 void	ft_release_forks(t_philo *philo)
 {
@@ -52,61 +26,25 @@ void	ft_release_forks(t_philo *philo)
 	}
 }
 
-int	ft_pick_forks(t_philo *philo)
+void	ft_pick_forks(t_philo *philo)
 {
-	if (check_stop_status(philo) == TRUE)
-		return (FALSE);
 	if ((philo->id & 1) == 0)
 	{
 		pthread_mutex_lock(philo->lfork);
 		print_status_message(philo, "has taken a fork", philo->id);
-		if (check_stop_status(philo) == TRUE)
-			return (FALSE);
 		pthread_mutex_lock(philo->rfork);
 		print_status_message(philo, "has taken a fork", philo->id);
 		print_status_message(philo, "is eating", philo->id);
-		return (TRUE);
 	}
 	else
 	{
 		pthread_mutex_lock(philo->rfork);
 		print_status_message(philo, "has taken a fork", philo->id);
-		if (check_stop_status(philo) == TRUE)
-			return (FALSE);
 		pthread_mutex_lock(philo->lfork);
 		print_status_message(philo, "has taken a fork", philo->id);
 		print_status_message(philo, "is eating", philo->id);
-		return (TRUE);
 	}
-	return (FALSE);
 }
-
-// int	ft_pick_forks(t_philo *philo)
-// {
-// 	int	res;
-
-// 	if (check_stop_status(philo) == TRUE)
-// 		return (FALSE);
-// 	res = first_philo_pick_fork(philo);
-// 	if (res == FALSE)
-// 	{
-// 		res = last_philo_pick_fork(philo);
-// 		if (res == FALSE)
-// 		{
-// 			res = even_philo_pick_fork(philo);
-// 			if (res == FALSE)
-// 				res = uneven_philo_pick_fork(philo);
-// 		}
-// 	}
-// 	if (res > 1)
-// 	{
-// 		if (res == ERROR_RLS)
-// 			ft_release_forks_error(philo);
-// 		return (FALSE);
-// 	}
-// 	return (TRUE);
-// }
-
 
 void	ft_eat(t_philo *philo)
 {
@@ -125,8 +63,7 @@ void	ft_eat(t_philo *philo)
 		usleep(philo->data->time_to_die * 1000);
 		return ;
 	}
-	if (ft_pick_forks(philo) == FALSE)
-		return ;
+	ft_pick_forks(philo);
 	pthread_mutex_lock(philo->meal_mtx);
 	philo->last_meal = ft_gettimeofday(philo->data);
 	philo->nb_eaten += 1;
@@ -160,4 +97,6 @@ void	ft_think(t_philo *philo)
 	print_status_message(philo, "is thinking", philo->id);
 	if (philo->data->time_to_eat >= philo->data->time_to_sleep)
 		usleep(philo->data->time_to_eat - philo->data->time_to_sleep + 1);
+	else
+		usleep(50);
 }
