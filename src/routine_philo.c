@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 15:40:34 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/28 17:04:57 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:37:22 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	ft_release_forks(t_philo *philo)
 	}
 	else if (philo->id == philo->data->nb_philo)
 	{
-		pthread_mutex_unlock(&philo->data->forks[philo->data->nb_philo - (philo->id - 1)]);
+		pthread_mutex_unlock
+		(&philo->data->forks[philo->data->nb_philo - (philo->id - 1)]);
 		pthread_mutex_unlock(&philo->data->forks[0]);
 	}
 	else if ((philo->id & 1) == 0)
@@ -82,9 +83,7 @@ void	ft_eat(t_philo *philo)
 	if (ft_pick_forks(philo) == FALSE)
 		return ;
 	pthread_mutex_lock(philo->meal_mtx);
-	// printf("philo %zu last meal avant = %zu\n", philo->id, philo->last_meal);
 	philo->last_meal = ft_gettimeofday(philo->data);
-	// printf("philo %zu last meal = %zu\n", philo->id, philo->last_meal);
 	philo->nb_eaten += 1;
 	pthread_mutex_unlock(philo->meal_mtx);
 	usleep(philo->data->time_to_eat * 1000);

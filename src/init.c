@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 12:11:39 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/28 17:05:03 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:35:39 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	init_philo(t_data *data)
 		data->philo[i].id = i + 1;
 		data->philo[i].nb_eaten = 0;
 		data->philo[i].last_meal = data->time_start;
-		// printf("last meal = %zu\n", data->philo[i].last_meal);
 		data->philo[i].dead = &data->dead;
 		data->philo[i].dead_mtx = &data->dead_mtx;
 		data->philo[i].meal_mtx = &data->meal_mtx;

@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 10:53:43 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/28 16:49:34 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:37:47 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ int	last_philo_pick_fork(t_philo *philo)
 		print_status_message(philo, "has taken a fork", philo->id);
 		if (check_stop_status(philo) == TRUE)
 			return (ERROR_RLS);
-		pthread_mutex_lock(&philo->data->forks[philo->data->nb_philo - (philo->id - 1)]);
+		pthread_mutex_lock
+		(&philo->data->forks[philo->data->nb_philo - (philo->id - 1)]);
 		print_status_message(philo, "has taken a fork", philo->id);
 		print_status_message(philo, "is eating", philo->id);
 		return (TRUE);
