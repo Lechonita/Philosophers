@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:32:00 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/28 13:22:02 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:03:23 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ size_t	ft_gettimeofday(t_data *data)
 
 	if (gettimeofday(&tv, NULL) != 0)
 		free_all_exit(data, ERR_TIME, 0);
-	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+	return ((tv.tv_sec * 1000) + tv.tv_usec / 1000);
 }

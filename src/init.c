@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 12:11:39 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/28 16:29:51 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:05:03 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	init_philo(t_data *data)
 		data->philo[i].id = i + 1;
 		data->philo[i].nb_eaten = 0;
 		data->philo[i].last_meal = data->time_start;
+		// printf("last meal = %zu\n", data->philo[i].last_meal);
 		data->philo[i].dead = &data->dead;
 		data->philo[i].dead_mtx = &data->dead_mtx;
 		data->philo[i].meal_mtx = &data->meal_mtx;
@@ -60,7 +61,7 @@ static void	init_alloc(t_data *data)
 
 int	init_data(t_data *data, char **args)
 {
-	if (ft_atoi(args[1]) > 0)
+	if (ft_atoi(args[1]) > 0 && ft_atoi(args[1]) < 201)
 		data->nb_philo = (size_t)ft_atoi(args[1]);
 	else
 		return (write(1, ERR_NB_PHILO, 38), FALSE);
