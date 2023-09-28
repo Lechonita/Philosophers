@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:43:57 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/27 16:56:02 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/28 16:22:39 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,17 @@
 						// pthread_mutex_init, pthread_mutex_destroy,
 						// pthread_mutex_lock, pthread_mutex_unlock
 
-# define FALSE 0
-# define TRUE 1
+// # define FALSE 0
+// # define TRUE 1
+// # define ERROR 2
+
+enum e_return
+{
+	FALSE = 0,
+	TRUE,
+	ERROR,
+	ERROR_RLS,
+};
 
 // # define EAT 0
 // # define SLEEP 1
@@ -86,6 +95,7 @@ void	init_mutex(t_data *data);
 int		init_data(t_data *data, char **args);
 
 /* THREADS */
+int		check_stop_status(t_philo *philo);
 void	*philo_routine(void *ptr);
 void	*manager_routine(void *ptr);
 void	create_threads(t_data *data);
@@ -98,12 +108,12 @@ void	ft_eat(t_philo *philo);
 void	ft_sleep(t_philo *philo);
 void	ft_think(t_philo *philo);
 
-/* ROUTINE UTILS */
-// void	unlock_forks_mutex(t_philo *philo);
-// int		ft_eat_left_handed(t_philo *philo);
-// int		ft_eat_right_handed(t_philo *philo);
-// int		lock_forks_mutex(t_philo *philo);
-int		check_if_dead_or_ate(t_philo *philo);
+/* PHILO FORKS */
+void	ft_release_forks_error(t_philo *philo);
+int		uneven_philo_pick_fork(t_philo *philo);
+int		even_philo_pick_fork(t_philo *philo);
+int		last_philo_pick_fork(t_philo *philo);
+int		first_philo_pick_fork(t_philo *philo);
 
 /* UTILS */
 void	print_status_message(t_philo *philo, char *str, int id);
