@@ -6,62 +6,107 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 15:40:34 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/28 17:37:22 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/28 18:25:14 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+
+// void	ft_release_forks(t_philo *philo)
+// {
+// 	if (philo->id == 1)
+// 	{
+// 		pthread_mutex_unlock(&philo->data->forks[philo->data->nb_philo - 1]);
+// 		pthread_mutex_unlock(&philo->data->forks[0]);
+// 	}
+// 	else if (philo->id == philo->data->nb_philo)
+// 	{
+// 		pthread_mutex_unlock
+// 		(&philo->data->forks[philo->data->nb_philo - (philo->id - 1)]);
+// 		pthread_mutex_unlock(&philo->data->forks[0]);
+// 	}
+// 	else if ((philo->id & 1) == 0)
+// 	{
+// 		pthread_mutex_unlock(&philo->data->forks[philo->id]);
+// 		pthread_mutex_unlock(&philo->data->forks[philo->id - 1]);
+// 	}
+// 	else
+// 	{
+// 		pthread_mutex_unlock(&philo->data->forks[philo->id - 1]);
+// 		pthread_mutex_unlock(&philo->data->forks[philo->id]);
+// 	}
+// }
+
 void	ft_release_forks(t_philo *philo)
 {
-	if (philo->id == 1)
+	if ((philo->id & 1) == 0)
 	{
-		pthread_mutex_unlock(&philo->data->forks[philo->data->nb_philo - 1]);
-		pthread_mutex_unlock(&philo->data->forks[0]);
-	}
-	else if (philo->id == philo->data->nb_philo)
-	{
-		pthread_mutex_unlock
-		(&philo->data->forks[philo->data->nb_philo - (philo->id - 1)]);
-		pthread_mutex_unlock(&philo->data->forks[0]);
-	}
-	else if ((philo->id & 1) == 0)
-	{
-		pthread_mutex_unlock(&philo->data->forks[philo->id]);
-		pthread_mutex_unlock(&philo->data->forks[philo->id - 1]);
+		pthread_mutex_unlock(philo->rfork);
+		pthread_mutex_unlock(philo->lfork);
 	}
 	else
 	{
-		pthread_mutex_unlock(&philo->data->forks[philo->id - 1]);
-		pthread_mutex_unlock(&philo->data->forks[philo->id]);
+		pthread_mutex_unlock(philo->lfork);
+		pthread_mutex_unlock(philo->rfork);
 	}
 }
 
 int	ft_pick_forks(t_philo *philo)
 {
-	int	res;
-
 	if (check_stop_status(philo) == TRUE)
 		return (FALSE);
-	res = first_philo_pick_fork(philo);
-	if (res == FALSE)
+	if ((philo->id & 1) == 0)
 	{
-		res = last_philo_pick_fork(philo);
-		if (res == FALSE)
-		{
-			res = even_philo_pick_fork(philo);
-			if (res == FALSE)
-				res = uneven_philo_pick_fork(philo);
-		}
+		pthread_mutex_lock(philo->lfork);
+		print_status_message(philo, "has taken a fork", philo->id);
+		if (check_stop_status(philo) == TRUE)
+			return (FALSE);
+		pthread_mutex_lock(philo->rfork);
+		print_status_message(philo, "has taken a fork", philo->id);
+		print_status_message(philo, "is eating", philo->id);
+		return (TRUE);
 	}
-	if (res > 1)
+	else
 	{
-		if (res == ERROR_RLS)
-			ft_release_forks_error(philo);
-		return (FALSE);
+		pthread_mutex_lock(philo->rfork);
+		print_status_message(philo, "has taken a fork", philo->id);
+		if (check_stop_status(philo) == TRUE)
+			return (FALSE);
+		pthread_mutex_lock(philo->lfork);
+		print_status_message(philo, "has taken a fork", philo->id);
+		print_status_message(philo, "is eating", philo->id);
+		return (TRUE);
 	}
-	return (TRUE);
+	return (FALSE);
 }
+
+// int	ft_pick_forks(t_philo *philo)
+// {
+// 	int	res;
+
+// 	if (check_stop_status(philo) == TRUE)
+// 		return (FALSE);
+// 	res = first_philo_pick_fork(philo);
+// 	if (res == FALSE)
+// 	{
+// 		res = last_philo_pick_fork(philo);
+// 		if (res == FALSE)
+// 		{
+// 			res = even_philo_pick_fork(philo);
+// 			if (res == FALSE)
+// 				res = uneven_philo_pick_fork(philo);
+// 		}
+// 	}
+// 	if (res > 1)
+// 	{
+// 		if (res == ERROR_RLS)
+// 			ft_release_forks_error(philo);
+// 		return (FALSE);
+// 	}
+// 	return (TRUE);
+// }
+
 
 void	ft_eat(t_philo *philo)
 {

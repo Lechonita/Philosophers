@@ -6,7 +6,7 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 12:11:39 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/28 17:35:39 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/09/28 18:25:48 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ void	init_philo(t_data *data)
 		data->philo[i].dead_mtx = &data->dead_mtx;
 		data->philo[i].meal_mtx = &data->meal_mtx;
 		data->philo[i].write_mtx = &data->write_mtx;
+		data->philo[i].lfork = &data->forks[i];
+		if (i == 0)
+			data->philo[i].rfork = &data->forks[data->nb_philo - 1];
+		else
+			data->philo[i].rfork = &data->forks[i - 1];
 		data->philo[i].data = data;
 		i++;
 	}
