@@ -10,8 +10,6 @@ FLAGS = -Wall -Wextra -Werror
 
 ifeq ($(debug), true)
 	FLAGS += -g3 -fsanitize=thread
-#-g3 -fsanitize=thread
-#-g
 endif
 
 CC = cc
@@ -74,8 +72,6 @@ $(NAME): $(OBJ)
 	@$(CC) $(FLAGS) $(OBJ) $(LDFLAGS) $(INCLUDES) -o $(NAME) -lpthread
 	@echo "\n	⤳$(GREEN) Created $(NAME) ✨\n$(DEF_COLOR)"
 
-# valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes -q ./$(NAME)
-
 clean:
 	@echo "$(HGREY)Removing .o object files...$(END)"
 	@rm -rf $(OBJ_DIR)
@@ -94,7 +90,7 @@ re: fclean all
 END=\033[0m
 RED=\033[1;31m
 LRED=\033[38;5;124m
-GREEN=\033[1;32m #\033[1;5;32m
+GREEN=\033[1;32m
 LGREEN=\033[38;5;22m
 BLUE=\033[1;34m
 LBLUE=\033[1;94m

@@ -6,27 +6,11 @@
 /*   By: jrouillo <jrouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:02:26 by jrouillo          #+#    #+#             */
-/*   Updated: 2023/09/26 17:05:35 by jrouillo         ###   ########.fr       */
+/*   Updated: 2023/10/04 11:27:38 by jrouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-// 1/number_of_philosophers    2/time_to_die    3/time_to_eat    4/time_to_sleep
-// 5/number_of_times_each_philosopher_must_eat
-
-/* Chaque philo prend la fourchette avec le plus petit chiffre.
-	Celui qui aura la plus petite et plus grande fourchette n'en prendra
-	donc aucune. */
-
-/* Créer un thread manager / serveur qui donne la permission aux philos
-	de manger. Mais aussi check s'il y a un mort.
-	Si oui, on arrête le programme. */
-
-/* Rajouter une fonction qui fait attendre que tous les threads soient
-	créés avant qu'ils ne s'activent. Comme ca tout le monde commence en même
-	temps, personne ne prend de l'avance. 
-	Est-ce que ca peut être contré direct avec un timeofday chacun ? */
 
 static int	check_args(char **args)
 {
